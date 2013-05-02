@@ -37,4 +37,9 @@ class GitCommitStory
     end
     "#{message}\n\nstory: #{story_id}"
   end
+
+  def commit
+    repo = Grit::Repo.new(".")
+    repo.commit_index(final_commit_message)
+  end
 end

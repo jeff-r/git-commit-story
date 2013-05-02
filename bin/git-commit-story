@@ -1,3 +1,28 @@
+#!/usr/bin/env ruby
+
+require "optparse"
 require "git-commit-story"
 
-GitCommitStory.run
+class GitCommitStoryRunner
+  def initialize(args)
+    parse_args(args)
+  end
+
+  def parse_args(args)
+    OptionsParser.new do |opts|
+      opts.banner = "Usage: git commit-story --message 'message' --story 'story'"
+      opts.on("-m", "--message MESSAGE", "Pass the message") do |message|
+        @message = message
+      end
+      opts.on("-s", "--story STORY", "Story ID -- AgileZen id, Pivotal id, or label") do |message|
+        @story = story
+      end
+    end
+  end
+
+  def run
+    GitCommitStory.new(:message => message, :story_id => story)
+  end
+end
+
+GitCommitStoryRunner.new(ARGV).run

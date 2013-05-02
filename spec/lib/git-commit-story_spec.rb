@@ -1,5 +1,6 @@
 require "git-commit-story"
 require "yaml"
+require "grit"
 
 describe GitCommitStory do
   let(:config_file_name) { ".git-commit-story.yml" }
@@ -69,6 +70,13 @@ describe GitCommitStory do
     end
   end
 
-  it "saves a commit"
+  it "saves a commit" do
+    gcs = GitCommitStory.new(:commit_message => "commit message", story_id: "whatever")
+    mock_repo = mock("repo")
+    Grit::Repo.should_receive(:new).with(".").and_return(mock_repo)
+    mock_repo.should_receive(:commit_index).with(gcs.final_commit_message)
+    gcs.commit
+  end
+
   it "reads the committer from the git config"
 end
