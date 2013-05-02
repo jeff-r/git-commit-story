@@ -1,4 +1,4 @@
-class GitSc
+class GitCommitStory
   def self.run
     "Hola"
   end

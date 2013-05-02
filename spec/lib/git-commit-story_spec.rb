@@ -1,8 +1,8 @@
-require "git-sc"
+require "git-commit-story"
 
-describe GitSc do
+describe GitCommitStory do
   it "initializes" do
-    GitSc.run.should == "Hola"
+    GitCommitStory.run.should == "Hola"
   end
 
   it "reads the committer from the git config"
