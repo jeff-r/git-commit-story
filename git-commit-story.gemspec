@@ -9,4 +9,8 @@ Gem::Specification.new do |s|
   s.email       = 'jroush@ezpublishing.com'
   s.files       = ["lib/git-commit-story.rb"]
   s.homepage    = 'http://rubygems.org/gems/git-commit-story'
+
+  s.add_dependency "grit"
+  s.add_development_dependency "rspec"
+  s.add_development_dependency "watchr"
 end
