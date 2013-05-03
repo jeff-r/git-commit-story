@@ -12,7 +12,6 @@ class GitCommitStoryRunner
     parser = OptionParser.new do |opts|
       opts.banner = "Usage: git commit-story --message 'message' --story 'story'"
       opts.on("-m", "--message MESSAGE", "The commit message") do |message|
-        puts "message: #{message}"
         @message = message
       end
       opts.on("-s", "--story STORY", "The story ID (This can be the Pivotal id, AgileZen id, or any label)") do |story_id|
