@@ -11,11 +11,11 @@ class GitCommitStoryRunner
   def parse_args(args)
     parser = OptionParser.new do |opts|
       opts.banner = "Usage: git commit-story --message 'message' --story 'story'"
-      opts.on("-m", "--message MESSAGE", "Pass the message") do |message|
+      opts.on("-m", "--message MESSAGE", "The commit message") do |message|
         puts "message: #{message}"
         @message = message
       end
-      opts.on("-s", "--story STORY", "Story ID -- AgileZen id, Pivotal id, or label") do |story_id|
+      opts.on("-s", "--story STORY", "Story ID (This can be the Pivotal or AgileZen id, or any label)") do |story_id|
         @story = story_id
       end
     end
