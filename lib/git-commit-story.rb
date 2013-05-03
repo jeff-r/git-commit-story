@@ -6,12 +6,17 @@ class GitCommitStory
 
   def initialize(options)
     @config_file_name    = ".git-commit-story.yml"
-    config_file_options = {}
-    if File.exist?(@config_file_name)
-      config_file_options = YAML.load_file(@config_file_name)
-    end
+    config_file_options = options_from_config_file
     config_file_options.merge!(options)
     @options = config_file_options
+  end
+
+  def options_from_config_file
+    if File.exist?(@config_file_name)
+      config_file_options = YAML.load_file(@config_file_name)
+    else
+      {}
+    end
   end
 
   def save_config_file
@@ -22,8 +27,20 @@ class GitCommitStory
     if @options[:story_id]
       @options[:story_id]
     else
-      puts "Enter a story"
-      story_id = $stdin.gets
+      prompt = "Enter a story"
+      prompt += " [#{@options[:previous_story_id]}]" if @options[:previous_story_id]
+      puts prompt
+      response = $stdin.gets.strip
+      if response == ""
+        if @options[:previous_story_id]
+          @options[:story_id] = @options[:previous_story_id]
+        else
+          puts "No story id was supplied"
+          abort
+        end
+      else
+        @options[:story_id] = response
+      end
     end
   end
 
@@ -32,14 +49,25 @@ class GitCommitStory
     if options[:commit_message]
       message = options[:commit_message]
     else
-      puts "Enter a commit message"
-      message = $stdin.gets
+      message = get_message_from_prompt
     end
     "#{message}\n\nstory: #{story_id}"
   end
 
+  def get_message_from_prompt
+    puts "Enter a commit message"
+    message = $stdin.gets
+    if message.length == 0
+      puts "No message supplied"
+      abort
+    end
+    message.strip
+  end
+
   def commit
-    repo = Grit::Repo.new(".")
-    repo.commit_index(final_commit_message)
+    message = "git commit -m '#{final_commit_message}'"
+    result = system(message)
+    options[:previous_story_id] = story_id
+    save_config_file
   end
 end

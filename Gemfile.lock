@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    git-commit-story (0.0.5)
+    git-commit-story (0.0.6)
       grit
 
 GEM

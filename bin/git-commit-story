@@ -9,19 +9,23 @@ class GitCommitStoryRunner
   end
 
   def parse_args(args)
-    OptionsParser.new do |opts|
+    parser = OptionParser.new do |opts|
       opts.banner = "Usage: git commit-story --message 'message' --story 'story'"
       opts.on("-m", "--message MESSAGE", "Pass the message") do |message|
+        puts "message: #{message}"
         @message = message
       end
-      opts.on("-s", "--story STORY", "Story ID -- AgileZen id, Pivotal id, or label") do |message|
-        @story = story
+      opts.on("-s", "--story STORY", "Story ID -- AgileZen id, Pivotal id, or label") do |story_id|
+        @story = story_id
       end
     end
+
+    parser.parse!
   end
 
   def run
-    GitCommitStory.new(:message => message, :story_id => story)
+    gcs = GitCommitStory.new(:commit_message => @message, :story_id => @story)
+    gcs.commit
   end
 end
 
