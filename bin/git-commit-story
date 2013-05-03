@@ -15,7 +15,7 @@ class GitCommitStoryRunner
         puts "message: #{message}"
         @message = message
       end
-      opts.on("-s", "--story STORY", "Story ID (This can be the Pivotal or AgileZen id, or any label)") do |story_id|
+      opts.on("-s", "--story STORY", "The story ID (This can be the Pivotal id, AgileZen id, or any label)") do |story_id|
         @story = story_id
       end
     end
