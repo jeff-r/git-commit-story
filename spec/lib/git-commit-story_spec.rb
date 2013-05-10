@@ -78,7 +78,7 @@ describe GitCommitStory do
 
   describe "with a commit message" do
     it "adds the story id to the commit message" do
-      commit_message = "the commit message"
+      commit_message = "the 'commit' message"
       gcs = GitCommitStory.new(commit_message: commit_message, story_id: "whatever")
       message = "#{commit_message}\n\nstory: whatever"
       gcs.final_commit_message.should == message
@@ -96,7 +96,7 @@ describe GitCommitStory do
 
   it "saves a commit" do
     gcs = GitCommitStory.new(:commit_message => "commit message", story_id: "whatever")
-    shell_command_string = "git commit -m '#{gcs.final_commit_message}'"
+    shell_command_string = %Q(git commit -m "#{gcs.final_commit_message}")
     gcs.should_receive(:system).with(shell_command_string)
     gcs.commit
   end

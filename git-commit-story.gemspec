@@ -2,8 +2,8 @@ Gem::Specification.new do |s|
   s.name        = "git-commit-story"
   s.executables << "git-commit-story"
   s.executables << "git-cs"
-  s.version     = "0.1.3"
-  s.date        = "2013-04-30"
+  s.version     = "0.1.4"
+  s.date        = "2013-05-10"
   s.summary     = "StreamSend git commit wrapper"
   s.description = "Thin wrapper around git commit that adds a story id to commit messages"
   s.authors     = ["Jeff Roush"]

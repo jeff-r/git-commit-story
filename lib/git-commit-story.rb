@@ -68,7 +68,7 @@ class GitCommitStory
   end
 
   def commit
-    message = "git commit -m '#{final_commit_message}'"
+    message = %Q(git commit -m "#{final_commit_message}")
     result = system(message)
     options[:previous_story_id] = story_id
     save_config_file
