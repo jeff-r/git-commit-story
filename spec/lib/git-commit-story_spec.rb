@@ -23,7 +23,7 @@ describe GitCommitStory do
 
   describe "without a story id" do
     it "prompts for a story" do
-      $stdout.should_receive(:puts).with("Enter a story")
+      $stdout.should_receive(:print).with("Enter a story: ")
       $stdin.should_receive(:gets).and_return("story")
       gcs = GitCommitStory.new({})
       gcs.story_id
@@ -40,7 +40,7 @@ describe GitCommitStory do
     it "includes a saved story id in the prompt" do
       gcs = GitCommitStory.new({message: "new message"})
       gcs.options[:previous_story_id] = "previous story"
-      $stdout.should_receive(:puts).with("Enter a story [previous story]")
+      $stdout.should_receive(:print).with("Enter a story [previous story]: ")
       $stdin.should_receive(:gets).and_return("")
       gcs.story_id
     end
@@ -87,7 +87,7 @@ describe GitCommitStory do
 
   describe "without a commit message" do
     it "prompts for a commit message" do
-      $stdout.should_receive(:puts).with("Enter a commit message")
+      $stdout.should_receive(:print).with("Enter a commit message: ")
       $stdin.should_receive(:gets).and_return("new commit message\n")
       gcs = GitCommitStory.new(story_id: "whatever")
       gcs.final_commit_message.should == "new commit message\n\nstory: whatever"

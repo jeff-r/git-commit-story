@@ -27,9 +27,12 @@ class GitCommitStory
     if @options[:story_id]
       @options[:story_id]
     else
-      prompt = "Enter a story"
-      prompt += " [#{@options[:previous_story_id]}]" if @options[:previous_story_id]
-      puts prompt
+      prompt = if @options[:previous_story_id]
+        "Enter a story [#{@options[:previous_story_id]}]: "
+      else
+        "Enter a story: "
+      end
+      $stdout.print prompt
       response = $stdin.gets.strip
       if response == ""
         if @options[:previous_story_id]
@@ -55,7 +58,7 @@ class GitCommitStory
   end
 
   def get_message_from_prompt
-    puts "Enter a commit message"
+    $stdout.print "Enter a commit message: "
     message = $stdin.gets
     if message.length == 0
       puts "No message supplied"
