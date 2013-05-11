@@ -80,7 +80,7 @@ describe GitCommitStory do
     it "adds the story id to the commit message" do
       commit_message = "the 'commit' message"
       gcs = GitCommitStory.new(commit_message: commit_message, story_id: "whatever")
-      message = "#{commit_message}\n\nstory: whatever"
+      message = "#{commit_message}\n\nStory: whatever"
       gcs.final_commit_message.should == message
     end
   end
@@ -90,7 +90,7 @@ describe GitCommitStory do
       $stdout.should_receive(:print).with("Enter a commit message: ")
       $stdin.should_receive(:gets).and_return("new commit message\n")
       gcs = GitCommitStory.new(story_id: "whatever")
-      gcs.final_commit_message.should == "new commit message\n\nstory: whatever"
+      gcs.final_commit_message.should == "new commit message\n\nStory: whatever"
     end
   end
 

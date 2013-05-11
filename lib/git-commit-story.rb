@@ -54,7 +54,7 @@ class GitCommitStory
     else
       message = get_message_from_prompt
     end
-    "#{message}\n\nstory: #{story_id}"
+    "#{message}\n\nStory: #{story_id}"
   end
 
   def get_message_from_prompt
